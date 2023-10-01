@@ -1,71 +1,80 @@
 ---
 layout: post
-title: "A Bayesian Odyssey"
+title: "Deciphering Bayes' Theorem"
 date: 2023-09-30
 tags: [Bayes, Data Science, Statistics]
 ---
 
-## 1.1 The Whisperings of Reverend Bayes
+## Introduction
 
-The realm of statistical thinking is vast, and at its very core lies a concept that has shaped analytical reasoning for centuries: Bayes' theorem. Named after Reverend Thomas Bayes, this theorem is more than a mathematical formula; it's a philosophy, a different way of viewing the world and the uncertainties that come with it.
+Bayes' theorem offers a methodology that systematically combines prior knowledge with observed data. This post aims to decode the theorem, providing insights into its mathematical structure.
 
-## 1.2 A Probabilistic Framework
+## The Foundation: Bayes' Theorem
 
-At the heart of the Bayesian paradigm is probability. While traditional, or frequentist, statistics often interpret probability as a long-term frequency, Bayesian statistics views probability as a measure of belief or uncertainty. It answers the question: "Given what we know, how confident are we about a particular outcome or hypothesis?"
+Bayes’ theorem is mathematically expressed as:
 
-## 1.3 Bayes' Theorem: The Cornerstone
+\\[ P(A \\vert B) = \\frac{P(B \\vert A) \\times P(A)}{P(B)} \\]
 
-Mathematically, Bayes’ theorem is expressed as:
+Where:
 
-\[ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)} \]
+- \\( A \\) and \\( B \\) are events.
+- \\( P(A \\vert B) \\) is the **posterior probability**.
+- \\( P(B \\vert A) \\) is the **likelihood**.
+- \\( P(A) \\) and \\( P(B) \\) are the **prior probabilities** of \\( A \\) and \\( B \\) respectively.
 
-Let's dive in a bit to understand each term:
+This equation enables us to refine our beliefs (the prior) by factoring in new data (the likelihood), leading to an updated belief (the posterior).
 
-### 1.3.1 Prior Probability \( P(A) \)
+## Components of the Theorem
 
-This is our background knowledge or belief about event A in the absence of specific evidence. It is our starting point, a benchmark of sorts.
+### The Prior, \\( P(A) \\)
 
-### 1.3.2 Likelihood \( P(B|A) \)
+Representing our initial understanding or prevailing beliefs, the prior might come from historical data, expert judgment, or might even be neutral, signifying no strong initial beliefs.
 
-This is the crux of the Bayesian approach. If our hypothesis \( A \) were true, how probable would the observed evidence \( B \) be?
+### The Likelihood, \\( P(B \\vert A) \\)
 
-### 1.3.3 Evidence \( P(B) \)
+This component quantifies the congruence of our data with a hypothesis. It questions the probability of observing our data if our hypothesis were true.
 
-This term calibrates our probabilities, ensuring they adhere to the foundational axioms of probability theory.
+### The Marginal Likelihood, \\( P(B) \\)
 
-### 1.3.4 Posterior Probability \( P(A|B) \)
+The evidence serves as a normalizing factor, ensuring that our probabilities conform to the foundational requirements of probability theory.
 
-Our new perspective. After factoring in the new evidence, this is our updated belief about the hypothesis.
+### The Posterior, \\( P(A \\vert B) \\)
 
-## 1.4 A Worked Example: Navigating Bayesian Waters
+The ultimate goal of our Bayesian analysis: given observed data, this component depicts our revised belief about the hypothesis.
 
-**The Medical Test Paradox**
+## Worked Example: Diagnosing a Rare Disease
 
-Imagine a rare disease that affects 1% of the population. There’s a test for it, which is 99% accurate. If you test positive, what’s the chance you actually have the disease?
+For a comprehensive understanding, let's dive into an illustrative example:
 
-Using Bayes' theorem:
+Consider a rare disease that affects 1 in every 10,000 individuals. A test, boasting a 99% accuracy rate, is available for diagnosis. What is the probability that a randomly chosen individual, testing positive, indeed has the disease?
 
-- Prior \( P(Disease) = 0.01 \)
-- Likelihood \( P(Positive|Disease) = 0.99 \)
-- Evidence \( P(Positive) \) is the probability of testing positive, whether you have the disease or not.
+Given:
+- Prior probability of the disease, \\( P(Disease) = 0.0001 \\).
+- Probability of a positive test result given the disease, \\( P(Positive \\vert Disease) = 0.99 \\).
+- Probability of a positive test despite no disease (False positive rate), \\( P(Positive \\vert No Disease) = 0.01 \\).
 
-Calculating the Evidence:
-\[ P(Positive) = P(Disease) \times P(Positive|Disease) + P(No Disease) \times P(Positive|No Disease) \]
-\[ P(Positive) = 0.01 \times 0.99 + 0.99 \times 0.01 = 0.0198 \]
+We seek the posterior probability, \\( P(Disease \\vert Positive) \\).
 
-Now, the Posterior:
-\[ P(Disease|Positive) = \frac{0.99 \times 0.01}{0.0198} = 0.5 \]
+Initially, determine the evidence, \\( P(Positive) \\), the overall probability of a positive test:
 
-Surprisingly, even with a 99% accurate test, there’s only a 50% chance you have the disease given a positive result, thanks to the low prevalence (prior) of the disease.
+\\[ P(Positive) = P(Disease) \\times P(Positive \\vert Disease) + P(No Disease) \\times P(Positive \\vert No Disease) \\]
+\\[ P(Positive) = 0.0001 \\times 0.99 + 0.9999 \\times 0.01 = 0.010098 \\]
 
-## 1.5 The Bigger Picture: Why Bayes?
+Next, employing Bayes' theorem:
 
-1. **Incorporation of Expertise**: Unlike methodologies that rely solely on data, Bayesian methods allow for the incorporation of expert judgment or prior studies.
-2. **Understanding Uncertainty**: It doesn’t just give a point estimate, but a distribution, allowing for a richer understanding of uncertainties.
-3. **Iterative Learning**: As new data becomes available, Bayesian models can be updated, providing a dynamic way of learning.
+\\[ P(Disease \\vert Positive) = \\frac{P(Positive \\vert Disease) \\times P(Disease)}{P(Positive)} \\]
+\\[ P(Disease \\vert Positive) = \\frac{0.99 \\times 0.0001}{0.010098} \\approx 0.0098 \\]
 
-## 1.6 In Conclusion
+Remarkably, despite a 99% accurate test, the actual probability of having the disease after a positive result is just under 1%. This highlights the influence of the prior, and showcases Bayes' theorem's potency in real-world scenarios.
 
-This post lays the groundwork for our Bayesian journey, introducing foundational concepts and their relevance. Bayesian statistics, rooted in probability, provides a powerful lens to interpret data, draw insights, and make decisions. As we proceed, we'll delve deeper into Bayesian models, computational methods, and their applications in the modern data-driven world.
+## Future Post Topics
 
-In the next post, we will explore how Bayesian methods contrast with traditional statistics, emphasizing their strengths and limitations.
+- **Hierarchical Models**: These are essential when sharing information among related groups, particularly in situations with limited data.
+
+- **Bayesian Regression**: This offers more than point estimates; one can produce full posterior distributions over parameters.
+
+- **Markov Chain Monte Carlo (MCMC) Methods**: In cases where direct computation of the posterior is daunting, these algorithms provide a way to approximate it.
+
+## Conclusion
+
+Bayes' theorem provides a sophisticated yet systematic approach for uncertainty quantification. As we have seen, it offers invaluable insights, from basic probability assessments to intricate model evaluations, making it a cornerstone in modern data analysis.
